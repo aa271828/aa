@@ -1,0 +1,33 @@
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+      <div id = "displayFull" class="displayFull">
+         <div id="container" class="container">
+            <div id="status" class="status">hogehoge</div>
+            <div id="board" class="board"></div>
+            <div id="buttons" class="buttons">
+               <button id="apply" class="item">Apply</button>
+               <button id="reset" class="item">Reset</button>
+            </div>
+
+            <svg id = "edge"></svg>
+
+            <div id="overlay" class="popup-background hidden"></div>
+            <div id="modal" class="popup hidden">
+               <div class="content">
+                  <h3>First player</h3>
+                  <button id="You" class="chooseButton">You</button>
+                  <button id="AI" class="chooseButton">AI</button>
+               </div>
+            </div>
+
+         </div>
+      </div>
+      <script src="game.js"></script>
+
+   </body>
+</html>
