@@ -1,3 +1,4 @@
+// 1. ----- 全体変数 -----
 const N = 8;
 const HUMAN = 0;
 const AI = 1;
@@ -11,6 +12,8 @@ const overlay = document.getElementById("overlay");
 const modal = document.getElementById("modal");
 const youBtn = document.getElementById("You");
 const aiBtn = document.getElementById("AI");
+const showPlayLog = document.getElementById("log");
+const copyBtn = document.getElementById("copy-btn");
 
 const board_state = Array.from({ length: N }, () => Array(N).fill(0));
 const buttons = Array.from({ length: N }, () => Array(N).fill(null));
@@ -19,6 +22,8 @@ let selected = [];
 
 let currentPlayer = HUMAN;   // 手番: HUMAN / AI
 let game_started = false;    // ポップアップで開始選択済みか
+
+let PlayLog = "";
 
 // 内側判定
 function triangleArea(x0, y0, x1, y1, x2, y2) {
@@ -90,7 +95,7 @@ function refresh() {
          const btn = buttons[x][y];
 
          if (selectedSet.has(`${x},${y}`)) {
-            btn.style.backgroundColor = "yellow";
+            btn.style.backgroundColor = "#ffd54f";
             continue;
          }
 
@@ -104,10 +109,10 @@ function refresh() {
             )
          ) {
             btn.style.backgroundColor = (board_state[x][y] === 1) ?
-"crimson" : "steelblue";
+"#442222" : "#cccccc";
          } else {
             btn.style.backgroundColor = (board_state[x][y] === 1) ?
-"black" : "white";
+"#424242" : "#fafafa";
          }
       }
    }
@@ -203,6 +208,9 @@ function applyTriangle() {
          }
       }
    }
+
+   PlayLog += (currentPlayer === AI ? "AI" : "You") + "\n";
+   for (const point of selected) PlayLog += (point.x + ", " + point.y) + "\n"
 
    clearSelection();
    currentPlayer ^= 1;
@@ -301,6 +309,33 @@ function startGame(firstPlayer) {
    }
 }
 
+function showLog() {
+   document.getElementById("show").classList.add("active");
+   document.getElementById("overlay2").classList.remove("hidden");
+   
+   document.getElementById("PlayLog").textContent = PlayLog;
+}
+document.getElementById("overlay2").addEventListener("pointerdown", () => {
+   document.getElementById("show").classList.remove("active");
+   document.getElementById("overlay2").classList.add("hidden");
+});
+copyBtn.addEventListener("pointerdown",async () => {
+   try {
+      await navigator.clipboard.writeText(PlayLog);
+
+      copyBtn.textContent = "Copied!";
+      copyBtn.classList.add("copied");
+
+      setTimeout(() => {
+         copyBtn.textContent = "Copy";
+         copyBtn.classList.remove("copied");
+      }, 1500);
+
+   } catch (err) {
+      console.error("コピー失敗:", err);
+   }
+});
+
 // board 生成
 for (let x = 0; x < N; x++) {
    for (let y = 0; y < N; y++) {
@@ -348,3 +383,7 @@ refresh();
 if (typeof WebAssembly !== "object") {
    alert("Wasm NG");
 }
+
+showPlayLog.addEventListener("pointerdown", () => {
+   showLog();
+});
