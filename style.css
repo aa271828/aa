@@ -1,5 +1,5 @@
 html {
-  font-size: 4vmin;
+  font-size: 30px;
   font-family: monospace;
 }
 
@@ -21,8 +21,8 @@ body {
 }
 
 .container {
-  height: 95vmin;
-  width: 77vmin;
+  width: min(90vw, 90vh * (4 / 5));
+  aspect-ratio: 4 / 5;
   background: lightblue;
   display: flex;
   flex-direction: column;
@@ -111,11 +111,12 @@ svg {
 .popup {
   position: fixed;
   z-index: 101;
-  width: 50vmin;
-  height: 35vmin;
+  width: min(90vw, 400px);
+  height: 250px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  gap: 10px;
 
   overflow: hidden;
   background-color: white;
@@ -146,8 +147,8 @@ svg {
    bottom: 20px;
    right: 20px;
    border-radius: 50%;
-   width: 10vmin;
-   height: 10vmin;
+   width: 70px;
+   height: 70px;
    background: black;
    opacity: 0.6;
    border: 0px;
@@ -186,23 +187,19 @@ svg {
 .popup2 {
   position: fixed;
   z-index: 101;
-  width: 50vmin;
-  height: 35vmin;
+  width: min(90vw, 400px);
+  height: 250px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
   box-shadow: 0px 0px 5px 2px #444;
 
-  /* 最初は非表示 */
   opacity: 0;
   pointer-events: none;
-
-  /* ふわっと用 */
   transition: opacity 0.3s ease;
 }
 
-/* 表示状態 */
 .popup2.active {
   opacity: 1;
   pointer-events: auto;
