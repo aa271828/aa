@@ -357,10 +357,12 @@ for (let x = 0; x < N; x++) {
 // ボタン
 applyBtn.addEventListener("pointerdown", (event) => {
    if (currentPlayer !== HUMAN) return;
+   if (applyBtn.disabled) return;
    applyTriangle();
 });
 
 resetBtn.addEventListener("pointerdown", (event) => {
+   if (resetBtn.disabled) return;
    resetGame();
 });
 
