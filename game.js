@@ -294,6 +294,7 @@ function resetGame() {
    clearSelection();
    currentPlayer = HUMAN;
    game_started = false;
+   PlayLog = "";
    setModalVisible(true);
    refresh();
 }
